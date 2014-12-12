@@ -6,7 +6,7 @@ void HeaderInformation::setManufacturerId(char *id) {
     this->manufacturer_id[1] = 0x00;
 
     // Checking we're not out of bounds
-    if (id[0] < 'A' || id[0] > 'Z' || id[1] < 'A' || id[1] > 'Z' || id[2] < 'A' || id[2] > 'Z') {
+    if (id[0] < 'A' || id[0] > 'Z' || id[1] < 'A' || id[1] > 'Z' || id[2] < 'A' || id[2] > 'Z') {
         return;
     }
 
@@ -38,6 +38,16 @@ void HeaderInformation::setYearOfManufacture(unsigned char year) {
     this->year_of_manufacture = year;
 }
 
-unsigned char* HeaderInformation::getChunkAsBinary() {
-    return this->manufacturer_id;
+void HeaderInformation::setEDIDVersion(unsigned char version) {
+    this->edid_version = version;
+}
+
+void HeaderInformation::setEDIDRevision(unsigned char revision) {
+    this->edid_revision = revision;
+}
+
+int HeaderInformation::writeToFile(FILE *stream) {
+    return fprintf(stream, "%8u",
+        this->header
+    );
 }
