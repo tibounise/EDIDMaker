@@ -1,8 +1,14 @@
 TARGET = main.cpp
 OUTPUT = edidmaker
 
+CXX = g++
+FLAGS = -std=c++11
+
 all:
-	g++ $(TARGET) -o $(OUTPUT) -std=c++11 -g
+	$(CXX) $(TARGET) -o $(OUTPUT) $(FLAGS)
+
+debug:
+	$(CXX) $(TARGET) -o $(OUTPUT) $(FLAGS) -g
 
 clean:
 	rm -f *.o edidmaker
