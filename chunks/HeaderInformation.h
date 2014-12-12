@@ -1,8 +1,10 @@
+#include <stdint.h>
+
 class HeaderInformation {
 public:
     void setManufacturerId(char *id);
-    void setManufacturerProductCode(unsigned short product_code);
-    void setSerialNumber(unsigned long number);
+    void setManufacturerProductCode(uint16_t product_code);
+    void setSerialNumber(uint32_t number);
     void setWeekOfManufacture(unsigned char week);
     void setYearOfManufacture(unsigned char year);
     void setEDIDVersion(unsigned char version);

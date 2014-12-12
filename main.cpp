@@ -8,7 +8,7 @@ int main() {
     HeaderInformation hi;
     char text[] = "SAM";
     hi.setManufacturerId(text);
-    hi.setManufacturerProductCode(423);
+    hi.setManufacturerProductCode(0x423);
     hi.setSerialNumber(0);
     hi.setWeekOfManufacture(31);
     hi.setYearOfManufacture(18);

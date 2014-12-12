@@ -22,12 +22,12 @@ void HeaderInformation::setManufacturerId(char *id) {
     this->manufacturer_id[1] ^= id[2];
 }
 
-void HeaderInformation::setManufacturerProductCode(unsigned short product_code) {
+void HeaderInformation::setManufacturerProductCode(uint16_t product_code) {
     this->manufacturer_product_code[0] = product_code & 0xFF;
     this->manufacturer_product_code[1] = (product_code & 0xFF00) >> 8;
 }
 
-void HeaderInformation::setSerialNumber(unsigned long number) {
+void HeaderInformation::setSerialNumber(uint32_t number) {
     this->serial_number = number;
 }
 
@@ -51,7 +51,7 @@ int HeaderInformation::writeToFile(FILE *stream) {
     fwrite(this->header,1,8,stream);
     fwrite(this->manufacturer_id,1,2,stream);
     fwrite(this->manufacturer_product_code,1,2,stream);
-    fwrite(&this->serial_number,sizeof(long),1,stream);
+    fwrite(&this->serial_number,sizeof(uint32_t),1,stream);
     fputc(this->week_of_manufacture,stream);
     fputc(this->year_of_manufacture,stream);
     fputc(this->edid_version,stream);
