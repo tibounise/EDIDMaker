@@ -18,12 +18,13 @@ void HeaderInformation::setManufacturerId(char *id) {
     // Binary monkeys will add this to manufacturer_id array
     this->manufacturer_id[0] ^= (id[0] << 2);
     this->manufacturer_id[0] ^= (id[1] >> 3);
-    this->manufacturer_id[1] ^= (id[1] << 6);
+    this->manufacturer_id[1] ^= (id[1] << 5);
     this->manufacturer_id[1] ^= id[2];
 }
 
 void HeaderInformation::setManufacturerProductCode(unsigned short product_code) {
-    this->manufacturer_product_code = product_code;
+    this->manufacturer_product_code[0] = product_code & 0xFF;
+    this->manufacturer_product_code[1] = (product_code & 0xFF00) >> 8;
 }
 
 void HeaderInformation::setSerialNumber(unsigned long number) {
@@ -47,7 +48,13 @@ void HeaderInformation::setEDIDRevision(unsigned char revision) {
 }
 
 int HeaderInformation::writeToFile(FILE *stream) {
-    return fprintf(stream, "%8u",
-        this->header
-    );
+    fwrite(this->header,1,8,stream);
+    fwrite(this->manufacturer_id,1,2,stream);
+    fwrite(this->manufacturer_product_code,1,2,stream);
+    fwrite(&this->serial_number,sizeof(long),1,stream);
+    fputc(this->week_of_manufacture,stream);
+    fputc(this->year_of_manufacture,stream);
+    fputc(this->edid_version,stream);
+    fputc(this->edid_revision,stream);
+    return 0;
 }

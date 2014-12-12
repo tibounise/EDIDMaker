@@ -11,7 +11,7 @@ public:
 private:
     unsigned char header[8] = {0x00,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0x00};
     unsigned char manufacturer_id[2] = {0x00,0x00};
-    unsigned short manufacturer_product_code = 0;
+    unsigned char manufacturer_product_code[2] = {0x00,0x00};
     unsigned long serial_number = 0;
     unsigned char week_of_manufacture;
     unsigned char year_of_manufacture;
