@@ -10,3 +10,7 @@ make
 ```
 
 And then, sit back and enjoy your freshly made `edid.bin`. You can currently tweak the EDID in main.cpp. In the future we'll have something cleaner to do this !
+
+## Related
+
+ * [https://github.com/Dragonrun1/edid-creator](edid-creator, a PHP library which has for main purpose to create and edit EDIDs)
