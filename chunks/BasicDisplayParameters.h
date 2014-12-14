@@ -3,23 +3,23 @@
 class BasicDisplayParameters {
 public:
     void setInputType(bool type);
-    void setVESADFPCompatibility(uint8_t compatible);
+    void setVESADFPCompatibility(bool compatible);
     void setWhiteAndSyncLevels(uint8_t levels);
-    void setBlankToBlackSetupExpected(uint8_t expected);
-    void setCompositeSyncSupport(uint8_t support);
-    void setSeparateSyncSupport(uint8_t support);
-    void setSyncOnGreenSupport(uint8_t support);
-    void setVSyncSerrated(uint8_t serrated);
+    void setBlankToBlackSetupExpected(bool expected);
+    void setCompositeSyncSupport(bool support);
+    void setSeparateSyncSupport(bool support);
+    void setSyncOnGreenSupport(bool support);
+    void setVSyncSerrated(bool serrated);
     void setHorizontalImageSize(uint8_t size);
     void setVerticalImageSize(uint8_t size);
     void setGamma(float gamma_float);
-    void setDPMSStandbySupport(uint8_t support);
-    void setDPMSSuspendSupport(uint8_t support);
-    void setDPMSActiveOffSupport(uint8_t support);
+    void setDPMSStandbySupport(bool support);
+    void setDPMSSuspendSupport(bool support);
+    void setDPMSActiveOffSupport(bool support);
     void setDisplayType(uint8_t type);
-    void setUseSRGBColorSpace(uint8_t srgb);
-    void setPreferredTimingMode(uint8_t timingmode);
-    void setGTFSupport(uint8_t support);
+    void setUseSRGBColorSpace(bool srgb);
+    void setPreferredTimingMode(bool timingmode);
+    void setGTFSupport(bool support);
     int writeToFile(FILE *stream);
 private:
     uint8_t inputParametersBitmap = 0;

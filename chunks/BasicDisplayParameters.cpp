@@ -16,7 +16,7 @@ void BasicDisplayParameters::setInputType(bool type) {
     // If it's an analog input, do nothing (we've already bit 0 to 0)
 }
 
-void BasicDisplayParameters::setVESADFPCompatibility(uint8_t compatible) {
+void BasicDisplayParameters::setVESADFPCompatibility(bool compatible) {
     uint8_t bitmask = 0b11111110;
     this->inputParametersBitmap &= bitmask;
 
@@ -51,7 +51,7 @@ void BasicDisplayParameters::setWhiteAndSyncLevels(uint8_t levels) {
     }
 }
 
-void BasicDisplayParameters::setBlankToBlackSetupExpected(uint8_t expected) {
+void BasicDisplayParameters::setBlankToBlackSetupExpected(bool expected) {
     uint8_t bitmask = 0b11101111;
     this->inputParametersBitmap &= bitmask;
 
@@ -61,7 +61,7 @@ void BasicDisplayParameters::setBlankToBlackSetupExpected(uint8_t expected) {
     }
 }
 
-void BasicDisplayParameters::setSeparateSyncSupport(uint8_t support) {
+void BasicDisplayParameters::setSeparateSyncSupport(bool support) {
     uint8_t bitmask = 0b11110111;
     this->inputParametersBitmap &= bitmask;
 
@@ -71,7 +71,7 @@ void BasicDisplayParameters::setSeparateSyncSupport(uint8_t support) {
     }
 }
 
-void BasicDisplayParameters::setCompositeSyncSupport(uint8_t support) {
+void BasicDisplayParameters::setCompositeSyncSupport(bool support) {
     uint8_t bitmask = 0b11111011;
     this->inputParametersBitmap &= bitmask;
 
@@ -81,7 +81,7 @@ void BasicDisplayParameters::setCompositeSyncSupport(uint8_t support) {
     }
 }
 
-void BasicDisplayParameters::setSyncOnGreenSupport(uint8_t support) {
+void BasicDisplayParameters::setSyncOnGreenSupport(bool support) {
     uint8_t bitmask = 0b11111101;
     this->inputParametersBitmap &= bitmask;
 
@@ -91,7 +91,7 @@ void BasicDisplayParameters::setSyncOnGreenSupport(uint8_t support) {
     }
 }
 
-void BasicDisplayParameters::setVSyncSerrated(uint8_t serrated) {
+void BasicDisplayParameters::setVSyncSerrated(bool serrated) {
     uint8_t bitmask = 0b11111110;
     this->inputParametersBitmap &= bitmask;
 
@@ -113,7 +113,7 @@ void BasicDisplayParameters::setGamma(float gamma_float) {
     this->gamma = (uint8_t)((gamma_float*100)-100);
 }
 
-void BasicDisplayParameters::setDPMSStandbySupport(uint8_t support) {
+void BasicDisplayParameters::setDPMSStandbySupport(bool support) {
     uint8_t bitmask = 0b01111111;
     this->supportedFeaturesBitmap &= bitmask;
 
@@ -123,7 +123,7 @@ void BasicDisplayParameters::setDPMSStandbySupport(uint8_t support) {
     }
 }
 
-void BasicDisplayParameters::setDPMSSuspendSupport(uint8_t support) {
+void BasicDisplayParameters::setDPMSSuspendSupport(bool support) {
     uint8_t bitmask = 0b10111111;
     this->supportedFeaturesBitmap &= bitmask;
 
@@ -133,7 +133,7 @@ void BasicDisplayParameters::setDPMSSuspendSupport(uint8_t support) {
     }
 }
 
-void BasicDisplayParameters::setDPMSActiveOffSupport(uint8_t support) {
+void BasicDisplayParameters::setDPMSActiveOffSupport(bool support) {
     uint8_t bitmask = 0b11011111;
     this->supportedFeaturesBitmap &= bitmask;
 
@@ -162,7 +162,7 @@ void BasicDisplayParameters::setDisplayType(uint8_t type) {
     case 2:
         this->supportedFeaturesBitmap ^= 0b00010000;
         break;
-        
+
     // Digital display : RGB 4:4:4 + YCrCb 4:4:4 + YCrCb 4:2:2, analog display : undefined
     case 3:
         this->supportedFeaturesBitmap ^= 0b00011000;
@@ -170,7 +170,7 @@ void BasicDisplayParameters::setDisplayType(uint8_t type) {
     }
 }
 
-void BasicDisplayParameters::setUseSRGBColorSpace(uint8_t srgb) {
+void BasicDisplayParameters::setUseSRGBColorSpace(bool srgb) {
     uint8_t bitmask = 0b11111011;
     this->supportedFeaturesBitmap &= bitmask;
 
@@ -179,7 +179,7 @@ void BasicDisplayParameters::setUseSRGBColorSpace(uint8_t srgb) {
     }
 }
 
-void BasicDisplayParameters::setPreferredTimingMode(uint8_t timingmode) {
+void BasicDisplayParameters::setPreferredTimingMode(bool timingmode) {
     uint8_t bitmask = 0b11111101;
     this->supportedFeaturesBitmap &= bitmask;
 
@@ -189,7 +189,7 @@ void BasicDisplayParameters::setPreferredTimingMode(uint8_t timingmode) {
     }
 }
 
-void BasicDisplayParameters::setGTFSupport(uint8_t support) {
+void BasicDisplayParameters::setGTFSupport(bool support) {
     uint8_t bitmask = 0b11111110;
     this->supportedFeaturesBitmap &= bitmask;
 
