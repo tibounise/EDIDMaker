@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "chunks/HeaderInformation.cpp"
+#include "chunks/BasicDisplayParameters.cpp"
 
 int main() {
     FILE *stream;
@@ -15,6 +16,16 @@ int main() {
     hi.setEDIDVersion(1);
     hi.setEDIDRevision(3);
     hi.writeToFile(stream);
+
+    BasicDisplayParameters bdp;
+    bdp.setInputType(true);
+    bdp.setHorizontalImageSize(0x16);
+    bdp.setVerticalImageSize(0x9);
+    bdp.setGamma(2.59);
+    bdp.setDPMSActiveOffSupport(true);
+    bdp.setDisplayType(1);
+    bdp.setPreferredTimingMode(true);
+    bdp.writeToFile(stream);
 
     fclose(stream);
 

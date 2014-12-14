@@ -1,14 +1,14 @@
 #include "BasicDisplayParameters.h"
 
-void BasicDisplayParameters::setInputType(uint8_t type) {
+void BasicDisplayParameters::setInputType(bool type) {
     uint8_t bitmask = 0b01111111;
     this->inputParametersBitmap &= bitmask;
 
-    // If it's a digital input
+    // Digital input
     if (type) {
         this->inputParametersBitmap ^= 0b10000000;
 
-        // Set up a new bitmask to erase some bits which
+        // Set up a new bitmask so that we erase someof the bits which
         // sould be zeroed if it's a digital output
         bitmask = 0b10000001;
         this->inputParametersBitmap &= bitmask;
@@ -16,7 +16,7 @@ void BasicDisplayParameters::setInputType(uint8_t type) {
     // If it's an analog input, do nothing (we've already bit 0 to 0)
 }
 
-void BasicDisplayParameters::setVESADFPTMDSCRGBCompatibility(uint8_t compatible) {
+void BasicDisplayParameters::setVESADFPCompatibility(uint8_t compatible) {
     uint8_t bitmask = 0b11111110;
     this->inputParametersBitmap &= bitmask;
 
@@ -61,7 +61,7 @@ void BasicDisplayParameters::setBlankToBlackSetupExpected(uint8_t expected) {
     }
 }
 
-void BasicDisplayParameters::setSeparateSyncSupported(uint8_t support) {
+void BasicDisplayParameters::setSeparateSyncSupport(uint8_t support) {
     uint8_t bitmask = 0b11110111;
     this->inputParametersBitmap &= bitmask;
 
@@ -81,7 +81,7 @@ void BasicDisplayParameters::setCompositeSyncSupport(uint8_t support) {
     }
 }
 
-void BasicDisplayParameters::setSyncOnGreenSupported(uint8_t support) {
+void BasicDisplayParameters::setSyncOnGreenSupport(uint8_t support) {
     uint8_t bitmask = 0b11111101;
     this->inputParametersBitmap &= bitmask;
 
@@ -92,9 +92,119 @@ void BasicDisplayParameters::setSyncOnGreenSupported(uint8_t support) {
 }
 
 void BasicDisplayParameters::setVSyncSerrated(uint8_t serrated) {
-    
+    uint8_t bitmask = 0b11111110;
+    this->inputParametersBitmap &= bitmask;
+
+    // Serrated if composite or sync on green
+    if (serrated) {
+        this->inputParametersBitmap ^= 0b00000001;
+    }
+}
+
+void BasicDisplayParameters::setHorizontalImageSize(uint8_t size) {
+    this->hImageSize = size;
+}
+
+void BasicDisplayParameters::setVerticalImageSize(uint8_t size) {
+    this->vImageSize = size;
+}
+
+void BasicDisplayParameters::setGamma(float gamma_float) {
+    this->gamma = (uint8_t)((gamma_float*100)-100);
+}
+
+void BasicDisplayParameters::setDPMSStandbySupport(uint8_t support) {
+    uint8_t bitmask = 0b01111111;
+    this->supportedFeaturesBitmap &= bitmask;
+
+    // DPMS standby supported
+    if (support) {
+        this->supportedFeaturesBitmap ^= 0b10000000;
+    }
+}
+
+void BasicDisplayParameters::setDPMSSuspendSupport(uint8_t support) {
+    uint8_t bitmask = 0b10111111;
+    this->supportedFeaturesBitmap &= bitmask;
+
+    // DPMS suspend supported
+    if (support) {
+        this->supportedFeaturesBitmap ^= 0b01000000;
+    }
+}
+
+void BasicDisplayParameters::setDPMSActiveOffSupport(uint8_t support) {
+    uint8_t bitmask = 0b11011111;
+    this->supportedFeaturesBitmap &= bitmask;
+
+    // DPMS active-off supported
+    if (support) {
+        this->supportedFeaturesBitmap ^= 0b00100000;
+    }
+}
+
+void BasicDisplayParameters::setDisplayType(uint8_t type) {
+    uint8_t bitmask = 0b11100111;
+    this->supportedFeaturesBitmap &= bitmask;
+
+    switch (type) {
+    // Digital display : RGB 4:4:4, analog display : monochrome or grayscale
+    case 0:
+        this->supportedFeaturesBitmap ^= 0b00000000;
+        break;
+
+    // Digital display : RGB 4:4:4 + YCrCb 4:4:4, analog display : RGB color
+    case 1:
+        this->supportedFeaturesBitmap ^= 0b00001000;
+        break;
+
+    // Digital display : RGB 4:4:4 + YCrCb 4:2:2, analog display : non-RGB color
+    case 2:
+        this->supportedFeaturesBitmap ^= 0b00010000;
+        break;
+        
+    // Digital display : RGB 4:4:4 + YCrCb 4:4:4 + YCrCb 4:2:2, analog display : undefined
+    case 3:
+        this->supportedFeaturesBitmap ^= 0b00011000;
+        break;
+    }
+}
+
+void BasicDisplayParameters::setUseSRGBColorSpace(uint8_t srgb) {
+    uint8_t bitmask = 0b11111011;
+    this->supportedFeaturesBitmap &= bitmask;
+
+    if (srgb) {
+        this->supportedFeaturesBitmap ^= 0b00000100;
+    }
+}
+
+void BasicDisplayParameters::setPreferredTimingMode(uint8_t timingmode) {
+    uint8_t bitmask = 0b11111101;
+    this->supportedFeaturesBitmap &= bitmask;
+
+    // Preferred timing mode specified in descriptor block 1
+    if (timingmode) {
+        this->supportedFeaturesBitmap ^= 0b00000010;
+    }
+}
+
+void BasicDisplayParameters::setGTFSupport(uint8_t support) {
+    uint8_t bitmask = 0b11111110;
+    this->supportedFeaturesBitmap &= bitmask;
+
+    // GTF supported
+    if (support) {
+        this->supportedFeaturesBitmap ^= 0b00000001;
+    }
 }
 
 int BasicDisplayParameters::writeToFile(FILE *stream) {
-    
+    fputc(this->inputParametersBitmap,stream);
+    fputc(this->hImageSize,stream);
+    fputc(this->vImageSize,stream);
+    fputc(this->gamma,stream);
+    fputc(this->supportedFeaturesBitmap,stream);
+
+    return 0;
 }
