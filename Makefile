@@ -11,4 +11,5 @@ debug:
 	$(CXX) $(TARGET) -o $(OUTPUT) $(FLAGS) -g
 
 clean:
-	rm -f *.o edid.bin edidmaker
+	rm -f *.o edid.bin $(OUTPUT)
+	rm -rf $(OUTPUT).dSYM/
