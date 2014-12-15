@@ -1,8 +1,8 @@
 TARGET = main.cpp
 OUTPUT = edidmaker
 
-CXX = g++
-FLAGS = -std=c++11
+CXX = clang++
+FLAGS = -std=c++0x
 
 all:
 	$(CXX) $(TARGET) -o $(OUTPUT) $(FLAGS)
