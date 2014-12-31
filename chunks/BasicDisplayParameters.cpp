@@ -110,7 +110,7 @@ void BasicDisplayParameters::setVerticalImageSize(uint8_t size) {
 }
 
 void BasicDisplayParameters::setGamma(float gamma_float) {
-    this->gamma = (uint8_t)((gamma_float*100)-100);
+    this->gamma = (uint8_t)((gamma_float*100)-99);
 }
 
 void BasicDisplayParameters::setDPMSStandbySupport(bool support) {

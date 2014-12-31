@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "chunks/HeaderInformation.cpp"
 #include "chunks/BasicDisplayParameters.cpp"
+#include "chunks/ChromaticityCoordinates.cpp"
+#include "chunks/EtablishedTiming.cpp"
 
 int main() {
     FILE *stream;
@@ -26,6 +28,20 @@ int main() {
     bdp.setDisplayType(1);
     bdp.setPreferredTimingMode(true);
     bdp.writeToFile(stream);
+
+    ChromaticityCoordinates cc;
+    cc.setRedValue(0.640,0.330);
+    cc.setGreenValue(0.300,0.608);
+    cc.setBlueValue(0.150,0.060);
+    cc.setWhiteValue(0.313,0.329);
+    cc.writeToFile(stream);
+
+    EtablishedTiming et;
+    et.set60Hz640x480Support(true);
+    et.set60Hz800x600Support(true);
+    et.set56Hz800x600Support(true);
+    et.set60Hz1024x768Support(true);
+    et.writeToFile(stream);
 
     fclose(stream);
 
